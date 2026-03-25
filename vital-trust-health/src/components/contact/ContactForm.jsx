@@ -1,8 +1,12 @@
- import { useState } from "react";
+import { useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://vital-trust-health-llc.onrender.com";
 
-const ContactForm = () => {
+ const ContactForm = () => {
+  const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -25,12 +29,15 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (loading) return; // 🚫 prevent multiple clicks
+
     if (!form.name || !form.email || !form.message) {
       setError("Please fill in all required fields.");
       return;
     }
 
     setError("");
+    setLoading(true); // 🔥 start loading
 
     try {
       const res = await fetch(`${API_URL}/api/contact`, {
@@ -61,8 +68,10 @@ const ContactForm = () => {
       setModal({
         show: true,
         type: "error",
-        message: "Server error. Please check your connection and try again.",
+        message: "Server error. Please try again.",
       });
+    } finally {
+      setLoading(false); // 🔥 stop loading
     }
   };
 
@@ -75,7 +84,7 @@ const ContactForm = () => {
       >
         {/* Decorative Element */}
         <div className="absolute top-0 right-0 w-40 h-40 bg-teal-50 rounded-full -mr-20 -mt-20 opacity-50"></div>
-        
+
         <div className="relative z-10">
           <h3 className="text-2xl font-bold text-slate-800 mb-2">
             Send Us a Message
@@ -156,10 +165,14 @@ const ContactForm = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-[#F97316] text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-200 hover:bg-[#EA580C] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2"
+              disabled={loading}
+              className={`w-full font-bold py-4 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2
+    ${loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#F97316] hover:bg-[#EA580C] hover:scale-[1.02] shadow-orange-200"
+                }`}
             >
-              Send Message
-              <IconSend />
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </div>
         </div>
@@ -168,7 +181,7 @@ const ContactForm = () => {
       {/* MODAL */}
       {modal.show && (
         <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div 
+          <div
             className="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl transform transition-all duration-300 scale-100"
             data-aos="zoom-in"
           >
