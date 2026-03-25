@@ -5,6 +5,7 @@ export const submitContact = async (req, res, next) => {
   try {
     const { name, email, phone, message } = req.body;
 
+    // ✅ Validation
     if (![name, email, message].every(Boolean)) {
       return res.status(400).json({
         success: false,
@@ -20,19 +21,33 @@ export const submitContact = async (req, res, next) => {
       message
     });
 
-    // 🔥 EMAILS (CONTROL HERE)
+    // 🔥 EMAIL SECTION (FIXED)
+    try {
+      // 👉 Admin email (must)
+      await sendAdminEmail({ name, email, phone, message });
 
-    // 👉 Always send to admin
-    sendAdminEmail({ name, email, phone, message });
+      // 👉 User email (optional)
+      const SEND_USER_EMAIL = true;
 
-    // 👉 Toggle user email (ON/OFF)
-    const SEND_USER_EMAIL = true;
+      if (SEND_USER_EMAIL) {
+        await sendUserEmail({ name, email });
+      }
 
-    if (SEND_USER_EMAIL) {
-      sendUserEmail({ name, email });
+      console.log("✅ Emails sent successfully");
+
+    } catch (emailError) {
+      console.error("❌ EMAIL ERROR:", emailError);
+
+      // 👉 Optional: still return success (form saved)
+      // OR you can fail response (your choice)
+
+      return res.status(500).json({
+        success: false,
+        message: "Message saved but email failed. Please try again later."
+      });
     }
 
-    // ✅ Response fast
+    // ✅ Final response
     return res.status(201).json({
       success: true,
       message: "Your message has been sent successfully",
@@ -44,6 +59,7 @@ export const submitContact = async (req, res, next) => {
     });
 
   } catch (error) {
+    console.error("❌ CONTROLLER ERROR:", error);
     next(error);
   }
 };
