@@ -153,10 +153,10 @@ const Footer = () => {
                   <SvgPhone />
                 </div>
                 <a
-                  href="tel:+14438383955"
+                  href="tel:+14106527070"
                   className="text-sm text-white/70 hover:text-white transition"
                 >
-                  +1 (443) 838-3955
+                  (410) 652-7070
                 </a>
               </div>
 

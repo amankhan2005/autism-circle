@@ -27,20 +27,7 @@ const AboutPreview = () => {
                 className="rounded-3xl shadow-2xl w-full h-[500px] object-cover relative z-10"
               />
               
-              {/* Floating Stats Card (Replaces simple badge) */}
-              <div className="absolute -bottom-8 -right-4 md:right-8 bg-white p-6 rounded-2xl shadow-xl z-20 border border-slate-100">
-                <div className="flex items-center gap-4">
-                  <div className="bg-orange-100 p-3 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#F97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-2xl font-bold text-slate-800">10+</h4>
-                    <p className="text-sm text-slate-500 font-medium">Years Experience</p>
-                  </div>
-                </div>
-              </div>
+           
             </div>
           </div>
 

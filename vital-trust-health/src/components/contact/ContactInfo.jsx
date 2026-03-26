@@ -1,7 +1,7 @@
- const ContactInfo = () => {
+const ContactInfo = () => {
   return (
     <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-8 relative overflow-hidden">
-      
+
       {/* Decorative subtle background element */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
 
@@ -10,7 +10,7 @@
       </h3>
 
       <div className="space-y-6 relative z-10">
-        
+
         {/* Address */}
         <a
           href="https://maps.google.com/?q=1205+Lobo+Court+Abingdon+MD+21009"
@@ -31,7 +31,7 @@
 
         {/* Phone */}
         <a
-          href="tel:+14438383955"
+          href="tel:+14106527070"
           className="flex items-start gap-4 group"
         >
           <div className="bg-teal-50 text-[#3EB8A7] p-3 rounded-xl group-hover:bg-[#F97316] group-hover:text-white transition-all duration-300">
@@ -40,7 +40,7 @@
           <div>
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Phone Number</p>
             <p className="text-slate-700 font-medium group-hover:text-[#F97316] transition-colors">
-              +1 (443) 838-3955
+              (410) 652-7070
             </p>
           </div>
         </a>
