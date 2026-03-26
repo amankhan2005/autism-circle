@@ -109,7 +109,11 @@ const faqs = [
     q: "How long does it take to manage stress effectively?",
     a: "Many clients feel a sense of relief after the first session. Long-term resilience is built over several weeks.",
   },
-];
+ {
+  q: "Do you help with prescriptions?",
+  a: "Yes, our Mental Health Nurse Practitioner provides guidance and management for all your medication needs."
+}
+]
 
 // --- 3. MAIN COMPONENT ---
 

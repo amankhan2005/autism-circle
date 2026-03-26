@@ -105,6 +105,10 @@ const faqs = [
     q: "What technology do I need for a session?",
     a: "You just need a stable internet connection, a smartphone, tablet, or computer with a camera and microphone.",
   },
+    {
+  q: "Will my medications be monitored?",
+  a: "Absolutely. Our Mental Health Nurse Practitioner ensures your medications are carefully managed for the best outcomes."
+},
 ];
 
 // --- 3. MAIN COMPONENT ---

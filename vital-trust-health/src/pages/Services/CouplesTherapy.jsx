@@ -99,6 +99,10 @@ const faqs = [
     q: "Is everything we share kept confidential?",
     a: "Yes. Confidentiality is paramount. We do not take sides or share your details with others.",
   },
+   {
+  q: "Do you offer support with medication?",
+  a: "Yes. Our Mental Health Nurse Practitioner provides expert guidance and management to ensure your medications are safe and effective."
+},
 ];
 
 // --- 3. MAIN COMPONENT ---

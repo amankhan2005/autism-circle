@@ -107,6 +107,10 @@ const faqs = [
     q: "Do you offer online or virtual sessions?",
     a: "Absolutely. We offer secure, HIPAA-compliant video sessions so you can access care from the comfort of your home.",
   },
+  {
+  q: "Is medication management part of your services?",
+  a: "Yes, medication management is included in our care. Our trained Mental Health Nurse Practitioner oversees and adjusts your treatment as needed."
+},
 ];
 
 // --- 3. MAIN COMPONENT ---

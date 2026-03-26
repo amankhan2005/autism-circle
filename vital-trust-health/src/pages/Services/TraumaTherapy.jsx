@@ -106,6 +106,10 @@ const faqs = [
     q: "How long does healing take?",
     a: "Healing is a personal journey. While it varies for each person, many clients begin to feel a sense of relief and control within the first few months.",
   },
+ {
+  q: "Is medication support available?",
+  a: "Yes, we offer professional medication management through our qualified Mental Health Nurse Practitioner."
+}
 ];
 
 // --- 3. MAIN COMPONENT ---

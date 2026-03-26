@@ -106,6 +106,10 @@ const faqs = [
     q: "Can therapy really help with depression?",
     a: "Yes. Therapy is one of the most effective treatments for depression, helping you reframe negative thoughts and rediscover motivation.",
   },
+    {
+    q: "Do you provide medication management?",
+    a: "Yes. Our well-trained Mental Health Nurse Practitioner provides expert medication management to support your treatment and overall well-being.",
+  },
 ];
 
 // --- 3. MAIN COMPONENT ---
