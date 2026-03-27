@@ -1,25 +1,35 @@
  import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Hero = () => {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <section className="w-full bg-gradient-to-br from-[#2F9E8F] via-[#3EB8A7] to-[#155E54] py-20 md:py-24 lg:py-32 relative overflow-hidden">
+    <section
+      className="w-full py-20 md:py-24 lg:py-32 relative overflow-hidden"
+      style={{
+        background:
+          theme === "dark"
+            ? "#000000"
+            : "linear-gradient(to bottom right, #2F9E8F, #3EB8A7, #155E54)",
+      }}
+    >
       
       {/* CONTENT */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[70vh]">
           
-          {/* TEXT */}
+          {/* TEXT (UNCHANGED) */}
           <div className="text-white text-center lg:text-left">
             
-            {/* ✅ Only mobile text bigger */}
             <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-[1.1] tracking-tight mb-6">
               Professional <br />
               <span className="text-teal-100/90">Mental Health</span> <br />
               Support
             </h1>
 
-            {/* ✅ Mobile center, desktop same */}
             <p className="text-white/80 text-lg md:text-xl max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed text-center lg:text-left">
               Compassionate and confidential care designed to support your mental well-being anytime, anywhere. You are not alone.
             </p>
@@ -48,8 +58,8 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ✅ IMAGE → hidden only on mobile */}
-      <div className="hidden lg:flex absolute right-0 mr-10 bottom-0 h-full items-end pointer-events-none">
+      {/* IMAGE */}
+      <div className="hidden lg:flex absolute right-0 bottom-0 h-full items-end pointer-events-none">
         <img
           src="/images/doctor.png"
           alt="Doctor"

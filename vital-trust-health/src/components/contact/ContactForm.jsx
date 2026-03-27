@@ -1,10 +1,14 @@
-import { useState } from "react";
+ import { useState, useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const API_URL =
   import.meta.env.VITE_API_URL ||
   "https://vital-trust-health-llc.onrender.com";
 
- const ContactForm = () => {
+const ContactForm = () => {
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
@@ -80,22 +84,32 @@ const API_URL =
       {/* FORM CONTAINER */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-3xl shadow-xl border border-slate-100 p-8 md:p-10 relative overflow-hidden"
+        className={`rounded-3xl shadow-xl p-8 md:p-10 relative overflow-hidden transition-colors duration-300 ${
+          isDark
+            ? "bg-[#111111] border border-[#222]"
+            : "bg-white border border-slate-100"
+        }`}
       >
         {/* Decorative Element */}
-        <div className="absolute top-0 right-0 w-40 h-40 bg-teal-50 rounded-full -mr-20 -mt-20 opacity-50"></div>
+        <div className={`absolute top-0 right-0 w-40 h-40 rounded-full -mr-20 -mt-20 ${
+          isDark ? "bg-teal-900/20" : "bg-teal-50 opacity-50"
+        }`}></div>
 
         <div className="relative z-10">
-          <h3 className="text-2xl font-bold text-slate-800 mb-2">
+          <h3 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-slate-800"}`}>
             Send Us a Message
           </h3>
-          <p className="text-slate-500 text-sm mb-8">
+          <p className={`text-sm mb-8 ${isDark ? "text-gray-400" : "text-slate-500"}`}>
             Fill out the form below and we'll get back to you shortly.
           </p>
 
           {/* Error Alert */}
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm mb-6 flex items-center gap-2">
+            <div className={`px-4 py-3 rounded-xl text-sm mb-6 flex items-center gap-2 ${
+              isDark 
+                ? "bg-red-900/30 border border-red-800 text-red-400" 
+                : "bg-red-50 border border-red-200 text-red-600"
+            }`}>
               <IconWarning />
               {error}
             </div>
@@ -105,7 +119,7 @@ const API_URL =
             {/* Name & Email Grid */}
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className={`block text-sm font-medium mb-2 ${isDark ? "text-gray-300" : "text-slate-700"}`}>
                   Full Name <span className="text-[#F97316]">*</span>
                 </label>
                 <input
@@ -114,11 +128,15 @@ const API_URL =
                   placeholder="John Doe"
                   value={form.name}
                   onChange={handleChange}
-                  className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#3EB8A7] focus:border-transparent outline-none transition text-slate-700"
+                  className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#3EB8A7] focus:border-transparent outline-none transition ${
+                    isDark
+                      ? "bg-black border-gray-800 text-white placeholder-gray-600"
+                      : "border-slate-200 text-slate-700"
+                  }`}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className={`block text-sm font-medium mb-2 ${isDark ? "text-gray-300" : "text-slate-700"}`}>
                   Email Address <span className="text-[#F97316]">*</span>
                 </label>
                 <input
@@ -127,14 +145,18 @@ const API_URL =
                   placeholder="john@example.com"
                   value={form.email}
                   onChange={handleChange}
-                  className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#3EB8A7] focus:border-transparent outline-none transition text-slate-700"
+                  className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#3EB8A7] focus:border-transparent outline-none transition ${
+                    isDark
+                      ? "bg-black border-gray-800 text-white placeholder-gray-600"
+                      : "border-slate-200 text-slate-700"
+                  }`}
                 />
               </div>
             </div>
 
             {/* Phone */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label className={`block text-sm font-medium mb-2 ${isDark ? "text-gray-300" : "text-slate-700"}`}>
                 Phone Number
               </label>
               <input
@@ -143,13 +165,17 @@ const API_URL =
                 placeholder="(123) 456-7890"
                 value={form.phone}
                 onChange={handleChange}
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#3EB8A7] focus:border-transparent outline-none transition text-slate-700"
+                className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#3EB8A7] focus:border-transparent outline-none transition ${
+                  isDark
+                    ? "bg-black border-gray-800 text-white placeholder-gray-600"
+                    : "border-slate-200 text-slate-700"
+                }`}
               />
             </div>
 
             {/* Message */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label className={`block text-sm font-medium mb-2 ${isDark ? "text-gray-300" : "text-slate-700"}`}>
                 Message <span className="text-[#F97316]">*</span>
               </label>
               <textarea
@@ -158,7 +184,11 @@ const API_URL =
                 placeholder="How can we help you?"
                 value={form.message}
                 onChange={handleChange}
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#3EB8A7] focus:border-transparent outline-none transition resize-none text-slate-700"
+                className={`w-full border rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#3EB8A7] focus:border-transparent outline-none transition resize-none ${
+                  isDark
+                    ? "bg-black border-gray-800 text-white placeholder-gray-600"
+                    : "border-slate-200 text-slate-700"
+                }`}
               ></textarea>
             </div>
 
@@ -170,7 +200,7 @@ const API_URL =
     ${loading
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-[#F97316] hover:bg-[#EA580C] hover:scale-[1.02] shadow-orange-200"
-                }`}
+                } text-white`}
             >
               {loading ? "Sending..." : "Send Message"}
             </button>
@@ -182,11 +212,15 @@ const API_URL =
       {modal.show && (
         <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div
-            className="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl transform transition-all duration-300 scale-100"
+            className={`rounded-3xl p-8 max-w-md w-full text-center shadow-2xl transform transition-all duration-300 scale-100 ${
+              isDark ? "bg-[#111111] border border-[#222]" : "bg-white"
+            }`}
             data-aos="zoom-in"
           >
             {/* Icon Circle */}
-            <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6 ${modal.type === "success" ? "bg-green-100" : "bg-red-100"}`}>
+            <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6 ${
+              modal.type === "success" ? "bg-green-100" : "bg-red-100"
+            }`}>
               {modal.type === "success" ? (
                 <IconCheck className="text-green-500 w-8 h-8" />
               ) : (
@@ -194,17 +228,21 @@ const API_URL =
               )}
             </div>
 
-            <h3 className="text-2xl font-bold text-slate-800 mb-2">
+            <h3 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-slate-800"}`}>
               {modal.type === "success" ? "Thank You!" : "Oops!"}
             </h3>
 
-            <p className="text-slate-500 mb-8 leading-relaxed">
+            <p className={`mb-8 leading-relaxed ${isDark ? "text-gray-400" : "text-slate-500"}`}>
               {modal.message}
             </p>
 
             <button
               onClick={() => setModal({ show: false })}
-              className="bg-slate-800 text-white px-8 py-3 rounded-xl font-semibold hover:bg-slate-700 transition w-full"
+              className={`font-semibold px-8 py-3 rounded-xl transition w-full ${
+                isDark 
+                  ? "bg-white text-black hover:bg-gray-200" 
+                  : "bg-slate-800 text-white hover:bg-slate-700"
+              }`}
             >
               Close
             </button>

@@ -1,5 +1,7 @@
-import Container from "../../components/layout/Container";
+ import Container from "../../components/layout/Container";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 // --- 1. ICON COMPONENTS (Defined First) ---
 
@@ -115,14 +117,28 @@ const faqs = [
 // --- 3. MAIN COMPONENT ---
 
 const TraumaTherapy = () => {
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   return (
-    <section className="bg-slate-50 min-h-screen relative overflow-hidden">
+    <section className={`min-h-screen relative overflow-hidden ${isDark ? "bg-black" : "bg-slate-50"}`}>
 
       {/* HERO SECTION */}
-      <div className="bg-gradient-to-br from-[#2F9E8F] via-[#3EB8A7] to-[#155E54] text-white pt-20 pb-32 relative">
-        {/* Decorative Blobs */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-teal-400/10 blur-[100px] rounded-full"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-orange-500/10 blur-[100px] rounded-full"></div>
+      <div
+        className="text-white pt-20 pb-32 relative"
+        style={{
+          background: isDark
+            ? "#000000"
+            : "linear-gradient(to bottom right, #2F9E8F, #3EB8A7, #155E54)",
+        }}
+      >
+        {/* Decorative Blobs (ONLY LIGHT) */}
+        {!isDark && (
+          <>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-teal-400/10 blur-[100px] rounded-full"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-orange-500/10 blur-[100px] rounded-full"></div>
+          </>
+        )}
 
         <Container className="relative z-10 text-center">
           <span 
@@ -152,11 +168,13 @@ const TraumaTherapy = () => {
       <Container>
         {/* MAIN ABOUT SECTION */}
         <div className="lg:-mt-20 relative z-10 mb-24">
-          <div className="grid lg:grid-cols-2 gap-16 items-center bg-white rounded-3xl shadow-2xl overflow-hidden p-8 md:p-12">
+          <div className={`grid lg:grid-cols-2 gap-16 items-center rounded-3xl shadow-2xl overflow-hidden p-8 md:p-12 transition-colors duration-300 ${
+            isDark ? "bg-[#111111] border border-[#222]" : "bg-white"
+          }`}>
             
             {/* Image Side */}
             <div className="relative" data-aos="fade-right">
-              <div className="absolute -inset-4 bg-gradient-to-br from-[#3EB8A7]/20 to-transparent rounded-3xl blur-xl"></div>
+              <div className={`absolute -inset-4 rounded-3xl blur-xl ${isDark ? "bg-teal-900/20" : "bg-gradient-to-br from-[#3EB8A7]/20 to-transparent"}`}></div>
               <img
                 src="/images/services/trauma-therapy.jpg"
                 alt="Trauma Therapy Session"
@@ -171,21 +189,21 @@ const TraumaTherapy = () => {
 
             {/* Content Side */}
             <div data-aos="fade-left">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6 leading-tight">
+              <h2 className={`text-3xl md:text-4xl font-bold mb-6 leading-tight ${isDark ? "text-white" : "text-slate-800"}`}>
                 What is Trauma Therapy?
               </h2>
-              <p className="text-slate-600 mb-4 leading-relaxed">
+              <p className={`mb-4 leading-relaxed ${isDark ? "text-gray-400" : "text-slate-600"}`}>
                 Trauma therapy focuses on helping individuals process and heal from distressing experiences that continue to affect their thoughts, emotions, and behavior.
               </p>
-              <p className="text-slate-600 mb-8 leading-relaxed">
+              <p className={`mb-8 leading-relaxed ${isDark ? "text-gray-400" : "text-slate-600"}`}>
                 Our therapists use evidence-based approaches to help you safely explore your experiences, reduce emotional pain, and build resilience.
               </p>
 
               {/* Features Checklist */}
               <ul className="space-y-3">
                 {["Safe & Confidential Environment", "Evidence-Based Techniques (EMDR, CBT)", "Personalized Healing Plan"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700">
-                    <span className="w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center text-teal-600">
+                  <li key={i} className={`flex items-center gap-3 ${isDark ? "text-gray-300" : "text-slate-700"}`}>
+                    <span className={`w-5 h-5 rounded-full flex items-center justify-center ${isDark ? "bg-teal-900/50 text-teal-400" : "bg-teal-100 text-teal-600"}`}>
                       <IconCheck />
                     </span>
                     {item}
@@ -199,10 +217,10 @@ const TraumaTherapy = () => {
         {/* WHAT WE HELP WITH */}
         <div className="py-16 relative">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4" data-aos="fade-up">
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-white" : "text-slate-800"}`} data-aos="fade-up">
               What We Help With
             </h2>
-            <p className="text-slate-600 max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="50">
+            <p className={`max-w-xl mx-auto ${isDark ? "text-gray-400" : "text-slate-600"}`} data-aos="fade-up" data-aos-delay="50">
               We provide support for a wide range of traumatic experiences.
             </p>
           </div>
@@ -211,14 +229,22 @@ const TraumaTherapy = () => {
             {issues.map((item, i) => (
               <div 
                 key={i} 
-                className="bg-white p-6 rounded-2xl border border-slate-100 hover:shadow-xl hover:border-teal-200 transition-all duration-300 text-center group"
+                className={`p-6 rounded-2xl border shadow-sm hover:shadow-xl transition-all duration-300 text-center group ${
+                  isDark 
+                    ? "bg-[#111111] border-[#222] hover:border-teal-600" 
+                    : "bg-white border-slate-100 hover:border-teal-200"
+                }`}
                 data-aos="fade-up"
                 data-aos-delay={i * 50}
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-teal-50 rounded-xl text-[#3EB8A7] mb-4 group-hover:bg-[#3EB8A7] group-hover:text-white transition-all duration-300">
+                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 transition-all duration-300 ${
+                  isDark 
+                    ? "bg-white/10 text-[#3EB8A7] group-hover:bg-[#3EB8A7] group-hover:text-white" 
+                    : "bg-teal-50 text-[#3EB8A7] group-hover:bg-[#3EB8A7] group-hover:text-white"
+                }`}>
                   {item.icon}
                 </div>
-                <p className="font-semibold text-slate-700">{item.title}</p>
+                <p className={`font-semibold ${isDark ? "text-gray-200" : "text-slate-700"}`}>{item.title}</p>
               </div>
             ))}
           </div>
@@ -226,18 +252,24 @@ const TraumaTherapy = () => {
 
         {/* BENEFITS SECTION */}
         <div className="py-16">
-          <div className="bg-gradient-to-br from-slate-100 to-white rounded-3xl p-8 md:p-12">
+          <div className={`rounded-3xl p-8 md:p-12 transition-colors duration-300 ${
+            isDark ? "bg-gradient-to-br from-slate-900 to-black" : "bg-gradient-to-br from-slate-100 to-white"
+          }`}>
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-800">Benefits of Therapy</h2>
+              <h2 className={`text-3xl font-bold ${isDark ? "text-white" : "text-slate-800"}`}>Benefits of Therapy</h2>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {benefits.map((b, i) => (
                 <div key={i} className="text-center group" data-aos="flip-left" data-aos-delay={i * 100}>
-                  <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5 text-[#F97316] shadow-md group-hover:scale-110 transition-transform duration-300">
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300 ${
+                    isDark 
+                      ? "bg-slate-800 text-[#F97316]" 
+                      : "bg-white text-[#F97316]"
+                  }`}>
                     {b.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">{b.title}</h3>
-                  <p className="text-slate-500 text-sm max-w-xs mx-auto">{b.desc}</p>
+                  <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-slate-800"}`}>{b.title}</h3>
+                  <p className={`text-sm max-w-xs mx-auto ${isDark ? "text-gray-400" : "text-slate-500"}`}>{b.desc}</p>
                 </div>
               ))}
             </div>
@@ -248,7 +280,7 @@ const TraumaTherapy = () => {
         <div className="py-16">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+              <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-white" : "text-slate-800"}`}>
                 Common Questions
               </h2>
             </div>
@@ -257,15 +289,19 @@ const TraumaTherapy = () => {
               {faqs.map((f, i) => (
                 <div 
                   key={i} 
-                  className="bg-white p-6 rounded-xl border border-slate-100 hover:border-teal-200 shadow-sm transition-all"
+                  className={`p-6 rounded-xl border shadow-sm transition-all ${
+                    isDark 
+                      ? "bg-[#111111] border-[#222] hover:border-gray-700" 
+                      : "bg-white border-slate-100 hover:border-teal-200"
+                  }`}
                   data-aos="fade-up"
                   data-aos-delay={i * 50}
                 >
-                  <h3 className="font-bold text-slate-800 text-lg flex items-start gap-3">
+                  <h3 className={`font-bold text-lg flex items-start gap-3 ${isDark ? "text-white" : "text-slate-800"}`}>
                     <span className="text-[#F97316] mt-1">Q:</span>
                     {f.q}
                   </h3>
-                  <p className="text-slate-600 mt-3 pl-7 leading-relaxed">{f.a}</p>
+                  <p className={`mt-3 pl-7 leading-relaxed ${isDark ? "text-gray-400" : "text-slate-600"}`}>{f.a}</p>
                 </div>
               ))}
             </div>
@@ -274,7 +310,14 @@ const TraumaTherapy = () => {
 
         {/* CTA SECTION */}
         <div className="pb-20">
-          <div className="bg-gradient-to-r from-[#F97316] to-orange-600 rounded-3xl p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
+          <div
+            className="rounded-3xl p-10 md:p-16 text-center relative overflow-hidden shadow-2xl"
+            style={{
+              background: isDark
+                ? "#000000"
+                : "linear-gradient(to right, #F97316, #ea580c)",
+            }}
+          >
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

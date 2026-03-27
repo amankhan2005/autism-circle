@@ -1,8 +1,14 @@
  import Container from "../../components/layout/Container";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const AboutPage = () => {
-  // Data for clean mapping
+  // Theme Logic
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
+  // Data (Unchanged)
   const highlights = [
     { icon: <IconLock />, title: "100% Confidential" },
     { icon: <IconBadge />, title: "Licensed Experts" },
@@ -30,13 +36,24 @@ const AboutPage = () => {
   ];
 
   return (
-    <section className="bg-slate-50 relative overflow-hidden">
+    <section className={`relative overflow-hidden ${isDark ? "bg-black" : "bg-slate-50"}`}>
 
       {/* HERO SECTION */}
-      <div className=" bg-gradient-to-br from-[#2F9E8F] via-[#3EB8A7] to-[#155E54] text-white pt-20 pb-32 relative">
-        {/* Decorative blobs */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-teal-400/10 blur-[100px] rounded-full"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-orange-500/10 blur-[100px] rounded-full"></div>
+      <div
+        className="text-white pt-20 pb-32 relative"
+        style={{
+          background: isDark
+            ? "#000000"
+            : "linear-gradient(to bottom right, #2F9E8F, #3EB8A7, #155E54)",
+        }}
+      >
+        {/* Decorative blobs - Only show in Light Mode */}
+        {!isDark && (
+          <>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-teal-400/10 blur-[100px] rounded-full"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-orange-500/10 blur-[100px] rounded-full"></div>
+          </>
+        )}
         
         <Container className="relative z-10 text-center">
           <span 
@@ -58,17 +75,20 @@ const AboutPage = () => {
       {/* MAIN ABOUT SECTION */}
       <Container>
         <div className="lg:-mt-20 relative z-10 mb-24">
-          <div className="grid lg:grid-cols-2 gap-16 items-center bg-white rounded-3xl shadow-2xl overflow-hidden p-8 md:p-12">
+          {/* Main Card: Dark Mode -> bg-[#111111] border-[#222] */}
+          <div className={`grid lg:grid-cols-2 gap-16 items-center rounded-3xl shadow-2xl overflow-hidden p-8 md:p-12 ${
+            isDark ? "bg-[#111111] border border-[#222]" : "bg-white"
+          }`}>
             
             {/* Image Side */}
             <div className="relative" data-aos="fade-right">
-              <div className="absolute -inset-4 bg-gradient-to-br from-[#3EB8A7]/20 to-transparent rounded-3xl blur-xl"></div>
+              <div className={`absolute -inset-4 rounded-3xl blur-xl ${isDark ? "bg-teal-900/20" : "bg-gradient-to-br from-[#3EB8A7]/20 to-transparent"}`}></div>
               <img
                 src="/images/about.jpg"
                 alt="Vital Trust Health Therapist Session"
                 className="relative rounded-2xl shadow-lg w-full h-[450px] object-cover"
               />
-              {/* Floating Badge */}
+              {/* Floating Badge - Unchanged style (Orange works on both) */}
               <div className="absolute -bottom-6 -right-6 bg-[#F97316] text-white p-5 rounded-2xl shadow-xl hidden md:block" data-aos="zoom-in" data-aos-delay="300">
                 <p className="text-3xl font-bold">10+</p>
                 <p className="text-sm opacity-90">Years Exp.</p>
@@ -77,13 +97,13 @@ const AboutPage = () => {
 
             {/* Content Side */}
             <div data-aos="fade-left">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6 leading-tight">
+              <h2 className={`text-3xl md:text-4xl font-bold mb-6 leading-tight ${isDark ? "text-white" : "text-slate-800"}`}>
                 Who We Are
               </h2>
-              <p className="text-slate-600 mb-4 leading-relaxed">
+              <p className={`mb-4 leading-relaxed ${isDark ? "text-gray-400" : "text-slate-600"}`}>
                 Vital Trust Health LLC is dedicated to providing high-quality mental health services to individuals, couples, and families. We believe that mental well-being is essential for a fulfilling life.
               </p>
-              <p className="text-slate-600 mb-8 leading-relaxed">
+              <p className={`mb-8 leading-relaxed ${isDark ? "text-gray-400" : "text-slate-600"}`}>
                 Our approach is centered around empathy, confidentiality, and evidence-based practices. We create a safe environment where clients can openly express themselves.
               </p>
 
@@ -92,12 +112,16 @@ const AboutPage = () => {
                 {highlights.map((item, i) => (
                   <div 
                     key={i} 
-                    className="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-teal-200 transition-colors group"
+                    className={`flex items-center gap-3 p-3 rounded-xl border transition-colors group ${
+                      isDark 
+                        ? "bg-black border-gray-800 hover:border-gray-600" 
+                        : "bg-slate-50 border-slate-100 hover:border-teal-200"
+                    }`}
                   >
                     <div className="text-[#3EB8A7] group-hover:text-[#F97316] transition-colors">
                       {item.icon}
                     </div>
-                    <p className="font-semibold text-slate-700 text-sm">{item.title}</p>
+                    <p className={`font-semibold text-sm ${isDark ? "text-white" : "text-slate-700"}`}>{item.title}</p>
                   </div>
                 ))}
               </div>
@@ -108,10 +132,10 @@ const AboutPage = () => {
         {/* WHY CHOOSE US */}
         <div className="py-16 relative">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4" data-aos="fade-up">
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-white" : "text-slate-800"}`} data-aos="fade-up">
               Why Choose Us
             </h2>
-            <p className="text-slate-600 max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="50">
+            <p className={`max-w-xl mx-auto ${isDark ? "text-gray-400" : "text-slate-600"}`} data-aos="fade-up" data-aos-delay="50">
               We combine professional expertise with genuine compassion to deliver the best care.
             </p>
           </div>
@@ -120,15 +144,23 @@ const AboutPage = () => {
             {whyChooseUs.map((item, i) => (
               <div 
                 key={i} 
-                className="bg-white p-8 rounded-2xl border border-slate-100 hover:shadow-xl hover:border-teal-200 transition-all duration-300 text-center group"
+                className={`p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-center group ${
+                  isDark 
+                    ? "bg-[#111111] border border-[#222] hover:border-gray-700" 
+                    : "bg-white border border-slate-100 hover:border-teal-200"
+                }`}
                 data-aos="fade-up"
                 data-aos-delay={i * 100}
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-teal-50 rounded-2xl text-[#3EB8A7] mb-6 group-hover:bg-[#3EB8A7] group-hover:text-white transition-all duration-300 shadow-sm">
+                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 transition-all duration-300 shadow-sm ${
+                  isDark 
+                    ? "bg-white/10 text-[#3EB8A7] group-hover:bg-[#3EB8A7] group-hover:text-white" 
+                    : "bg-teal-50 text-[#3EB8A7] group-hover:bg-[#3EB8A7] group-hover:text-white"
+                }`}>
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-2">{item.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-slate-800"}`}>{item.title}</h3>
+                <p className={`text-sm leading-relaxed ${isDark ? "text-gray-400" : "text-slate-500"}`}>{item.desc}</p>
               </div>
             ))}
           </div>
@@ -136,9 +168,16 @@ const AboutPage = () => {
 
         {/* STATS SECTION */}
         <div className="py-16">
-          <div className=" bg-gradient-to-br from-[#2F9E8F] via-[#3EB8A7] to-[#155E54] rounded-3xl p-10 md:p-16 relative overflow-hidden shadow-xl">
+          <div
+            className="rounded-3xl p-10 md:p-16 relative overflow-hidden shadow-xl"
+            style={{
+              background: isDark
+                ? "#000000"
+                : "linear-gradient(to bottom right, #2F9E8F, #3EB8A7, #155E54)",
+            }}
+          >
             {/* Background Pattern */}
-            <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-10"></div>
+            {!isDark && <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-10"></div>}
             <div className="absolute top-0 left-0 w-64 h-64 bg-teal-400/20 blur-[80px] rounded-full"></div>
             
             <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
@@ -156,19 +195,19 @@ const AboutPage = () => {
         <div className="py-16 grid lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1" data-aos="fade-right">
             <span className="text-sm font-bold text-[#3EB8A7] uppercase tracking-wider">Our Approach</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mt-2 mb-6">
+            <h2 className={`text-3xl md:text-4xl font-bold mt-2 mb-6 ${isDark ? "text-white" : "text-slate-800"}`}>
               Evidence-Based & Holistic Care
             </h2>
-            <p className="text-slate-600 mb-4 leading-relaxed">
+            <p className={`mb-4 leading-relaxed ${isDark ? "text-gray-400" : "text-slate-600"}`}>
               We follow a holistic and evidence-based approach that focuses on understanding your unique needs. Our therapies are designed to help you overcome challenges, build resilience, and improve overall well-being.
             </p>
-            <p className="text-slate-600 mb-6 leading-relaxed">
+            <p className={`mb-6 leading-relaxed ${isDark ? "text-gray-400" : "text-slate-600"}`}>
               Whether you are facing stress, anxiety, or deeper emotional challenges, we provide the right guidance and support every step of the way.
             </p>
             
             <ul className="space-y-3">
               {["Cognitive Behavioral Therapy (CBT)", "Trauma-Informed Care", "Mindfulness Based Interventions"].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-slate-700">
+                <li key={i} className={`flex items-center gap-3 ${isDark ? "text-gray-300" : "text-slate-700"}`}>
                   <span className="w-2 h-2 rounded-full bg-[#F97316]"></span>
                   {item}
                 </li>
@@ -177,7 +216,7 @@ const AboutPage = () => {
           </div>
 
           <div className="relative order-1 lg:order-2" data-aos="fade-left">
-            <div className="absolute -inset-4 bg-orange-100 rounded-3xl -rotate-3 opacity-40"></div>
+            <div className={`absolute -inset-4 rounded-3xl -rotate-3 ${isDark ? "bg-gray-900 opacity-40" : "bg-orange-100 opacity-40"}`}></div>
             <img
               src="/images/services/anxiety.webp"
               alt="Therapy Approach"
@@ -189,22 +228,22 @@ const AboutPage = () => {
         {/* VISION & MISSION */}
         <div className="py-16">
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-2xl border-t-4 border-[#3EB8A7] shadow-sm hover:shadow-lg transition-shadow" data-aos="fade-up">
-              <div className="bg-teal-50 w-12 h-12 rounded-lg flex items-center justify-center text-[#3EB8A7] mb-5">
+            <div className={`p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all border-t-4 border-[#3EB8A7] ${isDark ? "bg-[#111111] border-[#111111]" : "bg-white"}`} data-aos="fade-up">
+              <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-5 ${isDark ? "bg-white/10 text-[#3EB8A7]" : "bg-teal-50 text-[#3EB8A7]"}`}>
                 <IconEye />
               </div>
-              <h3 className="text-2xl font-bold text-slate-800 mb-3">Our Vision</h3>
-              <p className="text-slate-600 leading-relaxed">
+              <h3 className={`text-2xl font-bold mb-3 ${isDark ? "text-white" : "text-slate-800"}`}>Our Vision</h3>
+              <p className={`leading-relaxed ${isDark ? "text-gray-400" : "text-slate-600"}`}>
                 To create a world where mental health is prioritized, stigma is removed, and everyone has access to support.
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl border-t-4 border-[#F97316] shadow-sm hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="100">
-              <div className="bg-orange-50 w-12 h-12 rounded-lg flex items-center justify-center text-[#F97316] mb-5">
+            <div className={`p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all border-t-4 border-[#F97316] ${isDark ? "bg-[#111111] border-[#111111]" : "bg-white"}`} data-aos="fade-up" data-aos-delay="100">
+              <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-5 ${isDark ? "bg-white/10 text-[#F97316]" : "bg-orange-50 text-[#F97316]"}`}>
                 <IconTarget />
               </div>
-              <h3 className="text-2xl font-bold text-slate-800 mb-3">Our Mission</h3>
-              <p className="text-slate-600 leading-relaxed">
+              <h3 className={`text-2xl font-bold mb-3 ${isDark ? "text-white" : "text-slate-800"}`}>Our Mission</h3>
+              <p className={`leading-relaxed ${isDark ? "text-gray-400" : "text-slate-600"}`}>
                 To provide compassionate, confidential, and effective mental health care that empowers individuals to heal and grow.
               </p>
             </div>
@@ -213,17 +252,21 @@ const AboutPage = () => {
 
         {/* CORE VALUES */}
         <div className="py-16 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-12">
+          <h2 className={`text-3xl md:text-4xl font-bold mb-12 ${isDark ? "text-white" : "text-slate-800"}`}>
             Our Core Values
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {values.map((v, i) => (
               <div key={i} className="group" data-aos="flip-left" data-aos-delay={i * 100}>
-                <div className="bg-slate-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 text-[#3EB8A7] group-hover:bg-[#3EB8A7] group-hover:text-white transition-all duration-500 transform group-hover:scale-110 shadow-sm">
+                <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 transition-all duration-500 transform group-hover:scale-110 shadow-sm ${
+                  isDark 
+                    ? "bg-slate-900 text-[#3EB8A7] group-hover:bg-[#3EB8A7] group-hover:text-white" 
+                    : "bg-slate-100 text-[#3EB8A7] group-hover:bg-[#3EB8A7] group-hover:text-white"
+                }`}>
                   {v.icon}
                 </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-2">{v.title}</h3>
-                <p className="text-slate-500 text-sm max-w-xs mx-auto">{v.desc}</p>
+                <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-slate-800"}`}>{v.title}</h3>
+                <p className={`text-sm max-w-xs mx-auto ${isDark ? "text-gray-500" : "text-slate-500"}`}>{v.desc}</p>
               </div>
             ))}
           </div>
@@ -231,7 +274,14 @@ const AboutPage = () => {
 
         {/* CTA SECTION */}
         <div className="py-16">
-          <div className="bg-gradient-to-r from-[#F97316] to-orange-600 rounded-3xl p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
+          <div
+            className="rounded-3xl p-10 md:p-16 text-center relative overflow-hidden shadow-2xl"
+            style={{
+              background: isDark
+                ? "#000000"
+                : "linear-gradient(to right, #F97316, #ea580c)",
+            }}
+          >
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -241,7 +291,7 @@ const AboutPage = () => {
                 Take the first step towards a healthier mind today. We are here to support you.
               </p>
               <Link
-                to="/contact"
+                to="/contact-us"
                 className="inline-block bg-white text-[#F97316] px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:scale-105 hover:bg-slate-50 transition-all duration-300"
               >
                 Contact Us Today
@@ -255,7 +305,7 @@ const AboutPage = () => {
   );
 };
 
-// --- Icon Components (Keep these in a separate file or here for simplicity) ---
+// --- Icon Components (Unchanged) ---
 
 const IconLock = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

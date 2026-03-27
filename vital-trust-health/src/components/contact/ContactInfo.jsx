@@ -1,11 +1,23 @@
+ import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
+
 const ContactInfo = () => {
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   return (
-    <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-8 relative overflow-hidden">
+    <div className={`rounded-3xl shadow-xl p-8 relative overflow-hidden transition-colors duration-300 ${
+      isDark 
+        ? "bg-[#111111] border border-[#222]" 
+        : "bg-white border border-slate-100"
+    }`}>
 
       {/* Decorative subtle background element */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+      <div className={`absolute top-0 right-0 w-32 h-32 rounded-full -mr-16 -mt-16 ${
+        isDark ? "bg-teal-900/20" : "bg-teal-50 opacity-50"
+      }`}></div>
 
-      <h3 className="text-xl font-bold text-slate-800 mb-8 relative z-10">
+      <h3 className={`text-xl font-bold mb-8 relative z-10 ${isDark ? "text-white" : "text-slate-800"}`}>
         Contact Information
       </h3>
 
@@ -18,12 +30,18 @@ const ContactInfo = () => {
           rel="noopener noreferrer"
           className="flex items-start gap-4 group"
         >
-          <div className="bg-teal-50 text-[#3EB8A7] p-3 rounded-xl group-hover:bg-[#F97316] group-hover:text-white transition-all duration-300">
+          <div className={`p-3 rounded-xl transition-all duration-300 ${
+            isDark 
+              ? "bg-white/10 text-[#3EB8A7] group-hover:bg-[#F97316] group-hover:text-white" 
+              : "bg-teal-50 text-[#3EB8A7] group-hover:bg-[#F97316] group-hover:text-white"
+          }`}>
             <IconLocation />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Office Location</p>
-            <p className="text-slate-700 font-medium leading-relaxed group-hover:text-[#F97316] transition-colors">
+            <p className={`text-xs font-semibold uppercase tracking-wider mb-1 ${isDark ? "text-gray-500" : "text-slate-400"}`}>Office Location</p>
+            <p className={`font-medium leading-relaxed group-hover:text-[#F97316] transition-colors ${
+              isDark ? "text-gray-300" : "text-slate-700"
+            }`}>
               1205 Lobo Court, Abingdon MD 21009
             </p>
           </div>
@@ -34,12 +52,18 @@ const ContactInfo = () => {
           href="tel:+14106527070"
           className="flex items-start gap-4 group"
         >
-          <div className="bg-teal-50 text-[#3EB8A7] p-3 rounded-xl group-hover:bg-[#F97316] group-hover:text-white transition-all duration-300">
+          <div className={`p-3 rounded-xl transition-all duration-300 ${
+            isDark 
+              ? "bg-white/10 text-[#3EB8A7] group-hover:bg-[#F97316] group-hover:text-white" 
+              : "bg-teal-50 text-[#3EB8A7] group-hover:bg-[#F97316] group-hover:text-white"
+          }`}>
             <IconPhone />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Phone Number</p>
-            <p className="text-slate-700 font-medium group-hover:text-[#F97316] transition-colors">
+            <p className={`text-xs font-semibold uppercase tracking-wider mb-1 ${isDark ? "text-gray-500" : "text-slate-400"}`}>Phone Number</p>
+            <p className={`font-medium group-hover:text-[#F97316] transition-colors ${
+              isDark ? "text-gray-300" : "text-slate-700"
+            }`}>
               (410) 652-7070
             </p>
           </div>
@@ -50,12 +74,18 @@ const ContactInfo = () => {
           href="mailto:vitaltrusth@gmail.com"
           className="flex items-start gap-4 group"
         >
-          <div className="bg-teal-50 text-[#3EB8A7] p-3 rounded-xl group-hover:bg-[#F97316] group-hover:text-white transition-all duration-300">
+          <div className={`p-3 rounded-xl transition-all duration-300 ${
+            isDark 
+              ? "bg-white/10 text-[#3EB8A7] group-hover:bg-[#F97316] group-hover:text-white" 
+              : "bg-teal-50 text-[#3EB8A7] group-hover:bg-[#F97316] group-hover:text-white"
+          }`}>
             <IconMail />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Email Address</p>
-            <p className="text-slate-700 font-medium group-hover:text-[#F97316] transition-colors">
+            <p className={`text-xs font-semibold uppercase tracking-wider mb-1 ${isDark ? "text-gray-500" : "text-slate-400"}`}>Email Address</p>
+            <p className={`font-medium group-hover:text-[#F97316] transition-colors ${
+              isDark ? "text-gray-300" : "text-slate-700"
+            }`}>
               vitaltrusth@gmail.com
             </p>
           </div>
@@ -64,8 +94,8 @@ const ContactInfo = () => {
       </div>
 
       {/* Extra Note */}
-      <div className="mt-8 pt-6 border-t border-slate-100 relative z-10">
-        <p className="flex items-center gap-2 text-sm text-slate-500">
+      <div className={`mt-8 pt-6 relative z-10 ${isDark ? "border-gray-800" : "border-slate-100"} border-t`}>
+        <p className={`flex items-center gap-2 text-sm ${isDark ? "text-gray-400" : "text-slate-500"}`}>
           <IconClock />
           <span>We usually respond within 24 hours.</span>
         </p>
@@ -75,7 +105,7 @@ const ContactInfo = () => {
   );
 };
 
-// --- Icon Components ---
+// --- Icon Components (Unchanged) ---
 
 const IconLocation = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -1,10 +1,18 @@
 import Container from "../layout/Container";
 import { Link } from "react-router-dom";
 import servicesData from "../../data/servicesData";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const ServicesPreview = () => {
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden">
+    <section
+      className="py-24 relative overflow-hidden"
+      style={{ background: isDark ? "#000000" : "#f8fafc" }}
+    >
 
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
@@ -22,13 +30,18 @@ const ServicesPreview = () => {
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight mb-6">
+          <h2
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6"
+            style={{ color: isDark ? "#ffffff" : "#1e293b" }}
+          >
             Our Specialized <br />
             <span className="text-[#3EB8A7]">Mental Health</span> Services
           </h2>
 
-          {/* ✅ Updated Description (Merged Version) */}
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+          <p
+            className="text-lg max-w-2xl mx-auto leading-relaxed"
+            style={{ color: isDark ? "#ffffffaa" : "#64748b" }}
+          >
             We provide personalized mental health services, supported by a skilled Mental Health Nurse Practitioner who manages your medication needs.
           </p>
         </div>
@@ -39,9 +52,14 @@ const ServicesPreview = () => {
             <Link
               to={`/services/${s.slug}`}
               key={i}
-              className="group relative bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100 hover:border-[#3EB8A7]/30 transition-all duration-500 hover:-translate-y-2"
+              className="group relative rounded-2xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2"
+              style={{
+                background: isDark ? "#111111" : "#ffffff",
+                border: "1px solid",
+                borderColor: isDark ? "#222" : "#f1f5f9",
+              }}
             >
-              {/* Image Section */}
+              {/* Image */}
               <div className="relative h-56 overflow-hidden">
                 <img
                   src={`/images/services/${s.slug}.jpg`}
@@ -56,11 +74,17 @@ const ServicesPreview = () => {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-[#3EB8A7] transition-colors">
+                <h3
+                  className="text-xl font-bold mb-3 group-hover:text-[#3EB8A7] transition-colors"
+                  style={{ color: isDark ? "#ffffff" : "#1e293b" }}
+                >
                   {s.title}
                 </h3>
 
-                <p className="text-slate-500 text-sm leading-relaxed mb-5 line-clamp-2">
+                <p
+                  className="text-sm leading-relaxed mb-5 line-clamp-2"
+                  style={{ color: isDark ? "#aaaaaa" : "#64748b" }}
+                >
                   {s.desc}
                 </p>
 

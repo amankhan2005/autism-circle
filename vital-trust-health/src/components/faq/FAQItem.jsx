@@ -1,11 +1,27 @@
- const FAQItem = ({ question, answer, isOpen, onClick }) => {
+ import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
+
+const FAQItem = ({ question, answer, isOpen, onClick }) => {
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   return (
-    <div className="border border-slate-200 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-md">
+    <div
+      className="rounded-xl overflow-hidden transition-all duration-300 hover:shadow-md"
+      style={{
+        border: isDark ? "1px solid #222" : "1px solid #e2e8f0",
+        background: isDark ? "#111111" : "#ffffff",
+      }}
+    >
 
       {/* HEADER */}
       <button
         onClick={onClick}
-        className="w-full flex justify-between items-center p-5 text-left font-semibold text-slate-800 hover:bg-slate-50 transition"
+        className="w-full flex justify-between items-center p-5 text-left font-semibold transition"
+        style={{
+          color: isDark ? "#ffffff" : "#1e293b",
+          background: isDark ? "#111111" : "transparent",
+        }}
       >
         {question}
 
@@ -25,7 +41,12 @@
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
-        <div className="overflow-hidden px-5 pb-5 text-slate-500 leading-relaxed">
+        <div
+          className="overflow-hidden px-5 pb-5 leading-relaxed"
+          style={{
+            color: isDark ? "#aaaaaa" : "#64748b",
+          }}
+        >
           {answer}
         </div>
       </div>
