@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Container from "../components/layout/Container";
 
-import abaImg from "../assets/services/ABA.jpg";
+import abaImg from "../assets/services/aba.jpg";
 import parentImg from "../assets/services/parent.webp";
 import behaviorImg from "../assets/services/behavior.jpg";
 import socialImg from "../assets/services/social.webp";
