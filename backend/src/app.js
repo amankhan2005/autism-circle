@@ -8,9 +8,9 @@ const app = express();
 // ✅ CORS (clean)
 app.use(cors({
   origin: [
-    "https://vitaltrusthealth.netlify.app",
-    "https://vitaltrusth.com",
-    "https://www.vitaltrusth.com"
+    "https://autismcircle.netlify.app",
+    "https://autismcircle.com",
+    "https://www.autismcircle.com"
   ],
   methods: ["GET", "POST"],
   credentials: true

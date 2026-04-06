@@ -1,7 +1,7 @@
  {
-  "name": "vital-trust-health-backend",
+  "name": "autismcircle-backend",
   "version": "1.0.0",
-  "description": "Vital Trust Health Backend API",
+  "description": "autismcircle Backend API",
   "main": "server.js",
   "type": "module",
   "scripts": {
