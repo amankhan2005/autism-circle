@@ -9,8 +9,8 @@ const app = express();
 app.use(cors({
   origin: [
     "https://autismcircle.netlify.app",
-    "https://autismcircle.com",
-    "https://www.autismcircle.com"
+    "https://autismcircle.net",
+    "https://www.autismcircle.net"
   ],
   methods: ["GET", "POST"],
   credentials: true
