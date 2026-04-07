@@ -6,7 +6,7 @@ import parentImg from "../assets/services/parent.webp";
 import behaviorImg from "../assets/services/behavior.jpg";
 import socialImg from "../assets/services/social.webp";
 import dailyImg from "../assets/services/daily.webp";
-import homeImg from "../assets/services/home.avif";
+import homeImg from "../assets/services/home.jpg";
 
 const B = {
   yellow: "#F9C20A",

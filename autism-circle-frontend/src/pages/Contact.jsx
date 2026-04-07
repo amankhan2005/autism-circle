@@ -235,19 +235,111 @@ const Contact = () => {
 
               </div>
 
-              {/* MAP */}
-              <div className="map-wrapper">
-                <iframe
-                  src="https://www.google.com/maps?q=Edgewood,+MD+21040&output=embed"
-                  width="100%"
-                  height="280"
-                  style={{ border: 0, display: "block" }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Location Map"
-                ></iframe>
-              </div>
+             {/* MAP */}
+<style>{`
+  .map-outer {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid ${B.black};
+    box-shadow: 8px 8px 0px ${B.black};
+    background: ${B.yellow};
+    transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease;
+    animation: mapFadeIn 0.6s ease both;
+    position: relative;
+  }
+  .map-outer:hover {
+    transform: translateY(-4px) scale(1.012);
+    box-shadow: 12px 12px 0px ${B.black};
+  }
+  @keyframes mapFadeIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .map-label {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; background: ${B.black};
+  }
+  .map-label-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: ${B.orange}; flex-shrink: 0;
+    animation: mapPulse 2s ease-in-out infinite;
+  }
+  @keyframes mapPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(1.4); }
+  }
+  .map-label-text {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: ${B.yellow};
+  }
+  .map-iframe-wrap { position: relative; }
+  .map-shimmer {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, ${B.yellow} 0%, #fff8d6 45%, ${B.yellow} 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease infinite, shimmerFadeOut 0.4s ease 1.5s forwards;
+    z-index: 2; pointer-events: none;
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+  @keyframes shimmerFadeOut { to { opacity: 0; } }
+  .map-frame {
+    display: block; border: 0; width: 100%; height: 300px;
+    transition: filter 0.35s ease;
+  }
+  .map-outer:hover .map-frame { filter: saturate(1.15) contrast(1.05); }
+  .map-footer {
+    padding: 10px 16px; background: ${B.yellow};
+    border-top: 2px solid ${B.black};
+    display: flex; align-items: center; gap: 6px;
+  }
+  .map-footer-text { font-size: 13px; font-weight: 600; color: ${B.black}; }
+  .map-open-link {
+    margin-left: auto; font-size: 12px; font-weight: 700;
+    color: ${B.black}; text-decoration: none;
+    border: 2px solid ${B.black}; border-radius: 99px;
+    padding: 4px 12px; background: #fff;
+    transition: background .2s, color .2s, border-color .2s;
+    fontFamily: "'Plus Jakarta Sans', sans-serif";
+  }
+  .map-open-link:hover { background: ${B.orange}; color: #fff; border-color: ${B.orange}; }
+`}</style>
+
+<div className="map-outer">
+  <div className="map-label">
+    <span className="map-label-dot" />
+    <span className="map-label-text">Our Location — Maryland, USA</span>
+  </div>
+
+  <div className="map-iframe-wrap">
+    <div className="map-shimmer" />
+    <iframe
+      className="map-frame"
+      src="https://www.google.com/maps?q=Maryland,+USA&output=embed"
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      title="Maryland Map"
+    />
+  </div>
+
+  <div className="map-footer">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+      stroke={B.orange} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+    <span className="map-footer-text">Edgewood, MD 21040</span>
+    <a className="map-open-link"
+      href="https://maps.google.com/?q=Maryland,USA"
+      target="_blank" rel="noopener noreferrer">
+      Open Maps →
+    </a>
+  </div>
+</div>
             </motion.div>
 
             {/* RIGHT SIDE FORM (INVERTED TO YELLOW) */}
