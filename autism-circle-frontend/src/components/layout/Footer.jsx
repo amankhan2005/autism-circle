@@ -67,6 +67,16 @@ const Footer = () => {
           transition: opacity .2s;
         }
         .footer-credit a:hover { opacity: .75; }
+
+        .footer-contact-link {
+          font-size: 14px;
+          font-weight: 400;
+          color: #111;
+          text-decoration: none;
+          opacity: 0.65;
+          transition: opacity .2s, color .2s;
+        }
+        .footer-contact-link:hover { opacity: 1; color: #E85D04; }
       `}</style>
 
       <Container>
@@ -151,10 +161,10 @@ const Footer = () => {
             </h3>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
               {[
-                { icon: <MapPinIcon />, text: "Your City, USA" },
-                { icon: <PhoneIcon />, text: "+1 (000) 000-0000" },
-                { icon: <MailIcon />, text: "info@autismcircle.com" },
-              ].map(({ icon, text }) => (
+                { icon: <MapPinIcon />, text: "Edgewood, MD 21040", href: null },
+                { icon: <PhoneIcon />, text: "+1 (240) 274-8822", href: "tel:+12402748822" },
+                { icon: <MailIcon />, text: "autismcircleinmd@gmail.com", href: "mailto:autismcircleinmd@gmail.com" },
+              ].map(({ icon, text, href }) => (
                 <li
                   key={text}
                   style={{
@@ -173,7 +183,11 @@ const Footer = () => {
                   >
                     {icon}
                   </span>
-                  {text}
+                  {href ? (
+                    <a href={href} className="footer-contact-link">{text}</a>
+                  ) : (
+                    text
+                  )}
                 </li>
               ))}
             </ul>

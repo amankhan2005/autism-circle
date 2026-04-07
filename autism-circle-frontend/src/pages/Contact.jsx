@@ -123,6 +123,17 @@ const Contact = () => {
         .map-wrapper:hover {
           filter: grayscale(100%) contrast(1.1);
         }
+
+        .contact-info-link {
+          font-size: 16px;
+          font-weight: 600;
+          color: #111;
+          text-decoration: none;
+          transition: color .2s;
+        }
+        .contact-info-link:hover {
+          color: #E85D04;
+        }
       `}</style>
 
       {/* ==========================================
@@ -152,7 +163,7 @@ const Contact = () => {
               fontWeight: 900, letterSpacing: "-2px",
               lineHeight: 1.05, color: B.black, marginBottom: 20,
             }}>
-              We’re Here to <span style={{ color: B.orange }}>Support</span> You
+              We're Here to <span style={{ color: B.orange }}>Support</span> You
             </h1>
 
             <p style={{
@@ -195,7 +206,7 @@ const Contact = () => {
                 color: B.black, opacity: .7,
                 lineHeight: 1.7, marginBottom: 32,
               }}>
-                Our team is here to help you understand your child’s needs and guide you every step of the way.
+                Our team is here to help you understand your child's needs and guide you every step of the way.
               </p>
 
               {/* Contact List with Professional Icons */}
@@ -204,22 +215,22 @@ const Contact = () => {
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                   <div style={contactIconStyle}><MapPinIcon /></div>
                   <p style={{ fontSize: 16, fontWeight: 600, color: B.black, margin: 0 }}>
-                    Your Address, India
+                    Edgewood, MD 21040
                   </p>
                 </div>
 
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                   <div style={contactIconStyle}><PhoneIcon /></div>
-                  <p style={{ fontSize: 16, fontWeight: 600, color: B.black, margin: 0 }}>
-                    +91 00000 00000
-                  </p>
+                  <a href="tel:+12402748822" className="contact-info-link" style={{ margin: 0 }}>
+                    +1 (240) 274-8822
+                  </a>
                 </div>
 
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                   <div style={contactIconStyle}><MailIcon /></div>
-                  <p style={{ fontSize: 16, fontWeight: 600, color: B.black, margin: 0 }}>
-                    info@autismcircle.com
-                  </p>
+                  <a href="mailto:autismcircleinmd@gmail.com" className="contact-info-link" style={{ margin: 0 }}>
+                    autismcircleinmd@gmail.com
+                  </a>
                 </div>
 
               </div>
@@ -227,7 +238,7 @@ const Contact = () => {
               {/* MAP */}
               <div className="map-wrapper">
                 <iframe
-                  src="https://www.google.com/maps?q=India&output=embed"
+                  src="https://www.google.com/maps?q=Edgewood,+MD+21040&output=embed"
                   width="100%"
                   height="280"
                   style={{ border: 0, display: "block" }}
@@ -374,7 +385,7 @@ const Contact = () => {
               color: B.black, opacity: .7,
               lineHeight: 1.7, marginBottom: 40,
             }}>
-              Book a free consultation today and take the first step toward your child’s growth.
+              Book a free consultation today and take the first step toward your child's growth.
             </p>
 
             <motion.a 

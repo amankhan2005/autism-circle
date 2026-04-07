@@ -9,11 +9,19 @@ import Contact from "../pages/Contact";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 
+// ✅ Scroll components
+import ScrollToTop from "../components/ScrollToTop";
+import RouteScrollTop from "../components/RouteScrollTop";
+
 const AppRoutes = () => {
   return (
     <BrowserRouter>
-       <Navbar />
-       
+
+      {/* ✅ Global scroll handlers */}
+      <ScrollToTop />
+      <RouteScrollTop />
+
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -23,7 +31,7 @@ const AppRoutes = () => {
         <Route path="/contact-us" element={<Contact />} />
       </Routes>
 
-       <Footer />
+      <Footer />
     </BrowserRouter>
   );
 };

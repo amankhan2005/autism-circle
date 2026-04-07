@@ -5,20 +5,20 @@ import logo from "../../assets/logo.png";
 const B = {
   yellow: "#F9C20A",
   orange: "#E85D04",
-  black:  "#111111",
+  black: "#111111",
 };
 
 const NAV_LINKS = [
-  { name: "Home",     path: "/" },
+  { name: "Home", path: "/" },
   { name: "About Us", path: "/about-us" },
   { name: "Services", path: "/services" },
-  { name: "FAQ",      path: "/faq" },
+  { name: "FAQ", path: "/faq" },
 ];
 
 const PhoneIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/>
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z" />
   </svg>
 );
 
@@ -28,11 +28,11 @@ const HamburgerIcon = ({ open }) => (
     {open ? (
       <>
         <line x1="18" y1="6" x2="6" y2="18" />
-        <line x1="6"  y1="6" x2="18" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
       </>
     ) : (
       <>
-        <line x1="4" y1="7"  x2="20" y2="7"  />
+        <line x1="4" y1="7" x2="20" y2="7" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </>
     )}
@@ -41,7 +41,7 @@ const HamburgerIcon = ({ open }) => (
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled]     = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -168,7 +168,7 @@ const Navbar = () => {
 
         {/* CTAs — desktop */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }} className="hidden-mobile">
-          <a href="tel:+10000000000" className="btn-call">
+          <a href="tel:+12402748822" className="btn-call">
             <PhoneIcon /> Call Now
           </a>
           <Link to="/contact-us" className="btn-contact">
@@ -209,7 +209,7 @@ const Navbar = () => {
           ))}
 
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 16 }}>
-            <a href="tel:+10000000000" className="btn-call" style={{ justifyContent: "center" }}>
+            <a href="tel:+12402748822" className="btn-call" style={{ justifyContent: "center" }}>
               <PhoneIcon /> Call Now
             </a>
             <Link to="/contact-us" className="btn-contact" style={{ justifyContent: "center" }}>

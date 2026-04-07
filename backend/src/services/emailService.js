@@ -1,14 +1,29 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// =======================
+// ✅ LAZY INIT (MAIN FIX)
+// =======================
+let resend;
 
+const getResend = () => {
+  if (!resend) {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error("❌ RESEND_API_KEY missing in .env");
+    }
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+};
+
+// ✅ ENV CONFIG
 const FROM_EMAIL =
-  process.env.EMAIL_FROM || "Autism Circle <onboarding@resend.dev>";
+  process.env.EMAIL_FROM ||
+  "Autism Circle <no-reply@mg.autismcircle.net>";
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 const COMPANY_NAME = process.env.COMPANY_NAME || "Autism Circle";
 
-// 🎨 BRAND GRADIENT (UPDATED)
+// 🎨 Brand
 const gradient = "linear-gradient(135deg,#F9C20A,#E85D04)";
 
 
@@ -17,19 +32,23 @@ const gradient = "linear-gradient(135deg,#F9C20A,#E85D04)";
 // =======================
 export const sendAdminEmail = async ({ name, email, phone, message }) => {
   try {
+    const resend = getResend(); // ✅ FIX
+
     if (!ADMIN_EMAIL) throw new Error("ADMIN_EMAIL not defined");
 
-    return await resend.emails.send({
+    if (!name || !email || !message) {
+      throw new Error("Missing required fields");
+    }
+
+    const response = await resend.emails.send({
       from: FROM_EMAIL,
       to: ADMIN_EMAIL,
       subject: `New Inquiry - ${COMPANY_NAME}`,
 
       html: `
 <div style="font-family:Arial,sans-serif;background:#FFF8E1;padding:30px;">
-
   <div style="max-width:620px;margin:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.08);">
 
-    <!-- HEADER -->
     <div style="background:${gradient};padding:25px;text-align:center;color:#fff;">
       <h2 style="margin:0;font-size:22px;">📩 New Client Inquiry</h2>
       <p style="margin:5px 0 0;font-size:13px;opacity:0.9;">
@@ -37,9 +56,7 @@ export const sendAdminEmail = async ({ name, email, phone, message }) => {
       </p>
     </div>
 
-    <!-- BODY -->
     <div style="padding:25px;">
-
       <p style="color:#555;margin-bottom:20px;">
         A new inquiry has been submitted through your website:
       </p>
@@ -48,7 +65,7 @@ export const sendAdminEmail = async ({ name, email, phone, message }) => {
 
         ${[
           ["Name", name],
-          ["Email", email],
+          ["Email", `<a href="mailto:${email}" style="color:#E85D04;">${email}</a>`],
           ["Phone", phone || "N/A"],
           ["Message", message],
         ]
@@ -56,11 +73,11 @@ export const sendAdminEmail = async ({ name, email, phone, message }) => {
             ([label, value], i) => `
           <div style="display:flex;padding:12px;background:${
             i % 2 === 0 ? "#fff" : "#FFF3CC"
-          };">
+          };align-items:flex-start;">
             <div style="width:120px;font-weight:600;color:#0A2540;">
               ${label}
             </div>
-            <div style="flex:1;color:#555;">
+            <div style="flex:1;color:#555;word-break:break-word;">
               ${value}
             </div>
           </div>
@@ -69,10 +86,8 @@ export const sendAdminEmail = async ({ name, email, phone, message }) => {
           .join("")}
 
       </div>
-
     </div>
 
-    <!-- FOOTER -->
     <div style="padding:15px;text-align:center;font-size:12px;color:#777;background:#FFF3CC;">
       © ${new Date().getFullYear()} ${COMPANY_NAME} <br/>
       Supporting Every Step 💛
@@ -82,11 +97,13 @@ export const sendAdminEmail = async ({ name, email, phone, message }) => {
 </div>
 `,
     });
+
+    return { success: true, data: response };
   } catch (error) {
     console.error("❌ Admin Email Error:", error.message);
+    return { success: false, error: error.message };
   }
 };
-
 
 
 // =======================
@@ -94,17 +111,21 @@ export const sendAdminEmail = async ({ name, email, phone, message }) => {
 // =======================
 export const sendUserEmail = async ({ name, email }) => {
   try {
-    return await resend.emails.send({
+    const resend = getResend(); // ✅ FIX
+
+    if (!name || !email) {
+      throw new Error("Missing required fields");
+    }
+
+    const response = await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
       subject: `We’ve Received Your Request - ${COMPANY_NAME}`,
 
       html: `
 <div style="font-family:Arial,sans-serif;background:#FFF8E1;padding:30px;">
-
   <div style="max-width:620px;margin:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.08);">
 
-    <!-- HEADER -->
     <div style="background:${gradient};padding:30px;text-align:center;color:#fff;">
       <h2 style="margin:0;font-size:24px;">${COMPANY_NAME}</h2>
       <p style="margin:6px 0 0;font-size:14px;opacity:0.9;">
@@ -112,9 +133,7 @@ export const sendUserEmail = async ({ name, email }) => {
       </p>
     </div>
 
-    <!-- BODY -->
     <div style="padding:28px;">
-
       <h3 style="margin-top:0;color:#0A2540;">Hello ${name}, 👋</h3>
 
       <p style="color:#555;line-height:1.6;">
@@ -126,10 +145,9 @@ export const sendUserEmail = async ({ name, email }) => {
         ⏱ Expected response time: <strong>within 24 hours</strong>
       </p>
 
-      <!-- CTA -->
       <div style="margin:30px 0;text-align:center;">
         <a href="mailto:${ADMIN_EMAIL}"
-           style="background:#E85D04;color:#fff;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:bold;box-shadow:0 8px 20px rgba(232,93,4,0.3);">
+           style="background:#E85D04;color:#fff;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">
           Contact Support →
         </a>
       </div>
@@ -137,10 +155,8 @@ export const sendUserEmail = async ({ name, email }) => {
       <p style="font-size:13px;color:#777;text-align:center;">
         If your request is urgent, feel free to reply directly to this email.
       </p>
-
     </div>
 
-    <!-- FOOTER -->
     <div style="padding:18px;text-align:center;font-size:12px;color:#777;background:#FFF3CC;">
       © ${new Date().getFullYear()} ${COMPANY_NAME}<br/>
       You’re in safe hands 💛
@@ -150,7 +166,10 @@ export const sendUserEmail = async ({ name, email }) => {
 </div>
 `,
     });
+
+    return { success: true, data: response };
   } catch (error) {
     console.error("❌ User Email Error:", error.message);
+    return { success: false, error: error.message };
   }
 };
