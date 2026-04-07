@@ -442,60 +442,7 @@ const Contact = () => {
       {/* ==========================================
           3. CTA SECTION (YELLOW)
       ========================================== */}
-      <section style={{ background: B.yellow, padding: "88px 0", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-        <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            style={{ textAlign: "center", maxWidth: 640, margin: "0 auto" }}
-          >
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: 7,
-              background: B.black, color: B.yellow,
-              fontSize: 11, fontWeight: 700, letterSpacing: ".08em",
-              padding: "5px 16px", borderRadius: 99,
-              marginBottom: 24, textTransform: "uppercase",
-            }}>
-              <span style={{ width: 7, height: 7, borderRadius: "50%", background: B.orange, flexShrink: 0 }} />
-              Get Started
-            </div>
-
-            <h2 style={{
-              fontSize: "clamp(28px, 4vw, 52px)",
-              fontWeight: 900, letterSpacing: "-1.5px",
-              lineHeight: 1.05, color: B.black, marginBottom: 20,
-            }}>
-              Ready to Get <span style={{ color: B.orange }}>Started?</span>
-            </h2>
-
-            <div style={{ width: 48, height: 3, borderRadius: 2, background: B.orange, margin: "0 auto 24px" }} />
-
-            <p style={{
-              fontSize: 16, fontWeight: 500,
-              color: B.black, opacity: .7,
-              lineHeight: 1.7, marginBottom: 40,
-            }}>
-              Book a free consultation today and take the first step toward your child's growth.
-            </p>
-
-            <motion.a 
-              href="/contact-us" 
-              className="btn-primary" 
-              whileTap={{ scale: 0.97 }} 
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                padding: "14px 32px", borderRadius: 99,
-                fontSize: 14, fontWeight: 700,
-                background: B.black, color: B.yellow, textDecoration: "none",
-              }}
-            >
-              Schedule Free Consultation →
-            </motion.a>
-          </motion.div>
-        </Container>
-      </section>
+    
 
       {/* ==========================================
           4. ATTRACTIVE SUCCESS/ERROR MODAL
