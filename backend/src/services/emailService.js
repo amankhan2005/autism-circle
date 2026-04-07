@@ -17,8 +17,8 @@ const getResend = () => {
 
 // ✅ ENV CONFIG
 const FROM_EMAIL =
-  process.env.EMAIL_FROM ||
-  "Autism Circle <no-reply@mg.autismcircle.net>";
+  process.env.EMAIL_FROM;  
+   
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 const COMPANY_NAME = process.env.COMPANY_NAME || "Autism Circle";
